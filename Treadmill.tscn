@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://art/Treadmill.glb" type="PackedScene" id=2]
+
+[node name="Treadmill" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.023651, 0 )
+
+[node name="Mesh2" parent="." index="0"]
+transform = Transform( 0.0393701, 0, 0, 0, 0.0393701, 6.98492e-10, 0, 1.39698e-09, 0.0393701, 0.0644893, 0.228904, -0.269479 )
