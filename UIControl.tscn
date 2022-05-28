@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://art/monark logo fond transparent.png" type="Texture" id=1]
 [ext_resource path="res://art/play.png" type="Texture" id=2]
@@ -6,8 +6,22 @@
 [ext_resource path="res://art/stop.png" type="Texture" id=4]
 [ext_resource path="res://art/Auto Stop.png" type="Texture" id=5]
 [ext_resource path="res://art/Auto Cool Down.png" type="Texture" id=6]
+[ext_resource path="res://fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://art/SetButton.png" type="Texture" id=8]
 
 [sub_resource type="Theme" id=1]
+
+[sub_resource type="DynamicFont" id=2]
+size = 160
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 75
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 25
+font_data = ExtResource( 7 )
 
 [node name="UIControl" type="CanvasLayer"]
 script = ExtResource( 3 )
@@ -53,7 +67,118 @@ margin_bottom = 396.0
 rect_scale = Vector2( 0.3, 0.3 )
 icon = ExtResource( 6 )
 
+[node name="ElevationInput" type="TextEdit" parent="."]
+margin_left = 300.0
+margin_top = 300.0
+margin_right = 1200.0
+margin_bottom = 506.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 2 )
+
+[node name="SpeedInput" type="TextEdit" parent="."]
+margin_left = 300.0
+margin_top = 500.0
+margin_right = 1200.0
+margin_bottom = 706.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 2 )
+
+[node name="TimeInput" type="TextEdit" parent="."]
+margin_left = 300.0
+margin_top = 400.0
+margin_right = 1200.0
+margin_bottom = 606.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 2 )
+
+[node name="ElevationLabel" type="Label" parent="."]
+margin_left = 100.0
+margin_top = 300.0
+margin_right = 700.0
+margin_bottom = 506.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 3 )
+text = "ELEVATION
+in degree (°)"
+valign = 1
+uppercase = true
+
+[node name="SpeedLabel" type="Label" parent="."]
+margin_left = 100.0
+margin_top = 500.0
+margin_right = 700.0
+margin_bottom = 706.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 3 )
+text = "SPEED
+in km/h"
+valign = 1
+uppercase = true
+
+[node name="LogLabel" type="Label" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 30.0
+margin_top = -290.0
+margin_right = 630.0
+margin_bottom = -84.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 3 )
+text = "LOG"
+valign = 1
+uppercase = true
+
+[node name="TimeLabel" type="Label" parent="."]
+margin_left = 100.0
+margin_top = 400.0
+margin_right = 754.0
+margin_bottom = 606.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 3 )
+text = "TIME
+in seconds (s)"
+valign = 1
+uppercase = true
+
+[node name="SetElevation" type="Button" parent="."]
+margin_left = 600.0
+margin_top = 300.0
+margin_right = 1112.0
+margin_bottom = 806.0
+rect_scale = Vector2( 0.12, 0.12 )
+icon = ExtResource( 8 )
+
+[node name="SetSpeed" type="Button" parent="."]
+margin_left = 600.0
+margin_top = 500.0
+margin_right = 1112.0
+margin_bottom = 1006.0
+rect_scale = Vector2( 0.12, 0.12 )
+icon = ExtResource( 8 )
+
+[node name="SetTime" type="Button" parent="."]
+margin_left = 600.0
+margin_top = 400.0
+margin_right = 1112.0
+margin_bottom = 906.0
+rect_scale = Vector2( 0.12, 0.12 )
+icon = ExtResource( 8 )
+
+[node name="LogOutput" type="TextEdit" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 100.0
+margin_top = -280.0
+margin_right = 1300.0
+margin_bottom = -220.0
+custom_fonts/font = SubResource( 4 )
+readonly = true
+
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
 [connection signal="pressed" from="PlayButton" to="." method="_on_PlayButton_pressed"]
 [connection signal="pressed" from="StopButton" to="." method="_on_StopButton_pressed"]
 [connection signal="pressed" from="AutoStopButton" to="." method="_on_AutoStopButton_pressed"]
 [connection signal="pressed" from="AutoCoolDownButton" to="." method="_on_AutoCoolDownButton_pressed"]
+[connection signal="pressed" from="SetElevation" to="." method="_on_SetElevation_pressed"]
+[connection signal="pressed" from="SetSpeed" to="." method="_on_SetSpeed_pressed"]
+[connection signal="pressed" from="SetTime" to="." method="_on_SetTime_pressed"]
