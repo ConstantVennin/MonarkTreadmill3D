@@ -1,30 +1,43 @@
 extends Node
 
-export (PackedScene) var fleche_scene
-
-	
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+export(PackedScene) var mob_scene
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
+	$UserInterface/Retry.hide()
+	#$Stream.play()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _unhandled_input(event):
+	if event.is_action_pressed("ui_accept") and $UserInterface/Retry.visible:
+		get_tree().reload_current_scene()
+		$Stream.play()
 
 
-func _on_FlecheTimer_timeout():
-	var fleche = fleche_scene.instance()
-	# Choose a random location on the SpawnPath.
-	# We store the reference to the SpawnLocation node.
-	var fleche_spawn_location = get_node("SpawnPath/SpawnLocation")
-	# And give it a random offset.
-	fleche_spawn_location.unit_offset = randf()
-	var treadmill_position = $Treadmill.transform.origin
-	fleche.initialize(fleche_spawn_location.translation, treadmill_position)
-	add_child(fleche)
+func _on_MobTimer_timeout():
+	# Create a Mob instance and add it to the scene.
+	var mob = mob_scene.instance()
+	var direction = Vector3.ZERO
+
+	# Choose a random location on Path2D.
+	var mob_spawn_location = get_node("SpawnPath/SpawnLocation")
+	mob_spawn_location.unit_offset = randf()
+
+	var player_position = $Player.transform.origin
+
+	add_child(mob)
+	# We connect the mob to the score label to update the score upon squashing a mob.
+	mob.connect("squashed", $UserInterface/ScoreLabel, "_on_Mob_squashed")
+	mob.initialize(mob_spawn_location.translation, player_position)
+	if Input.is_action_pressed("decrease") :
+		$MobTimer.wait_time += 0.1
+	if Input.is_action_pressed("increase") and $MobTimer.wait_time>0.2 :
+		$MobTimer.wait_time -= 0.1
+
+func _on_Player_hit():
+	$MobTimer.stop()
+	$UserInterface/Retry.show()
+	$Stream.stop()
+	$DeathSound.play()
+

@@ -1,56 +1,150 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://Treadmill.tscn" type="PackedScene" id=1]
-[ext_resource path="res://fleche.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Main.gd" type="Script" id=3]
+[ext_resource path="res://Main.gd" type="Script" id=1]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Mob.tscn" type="PackedScene" id=3]
+[ext_resource path="res://default_env.tres" type="Environment" id=4]
+[ext_resource path="res://ScoreLabel.gd" type="Script" id=6]
+[ext_resource path="res://ui_theme.tres" type="Theme" id=7]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 30, 1, 30 )
 
 [sub_resource type="CubeMesh" id=2]
-size = Vector3( 60, 2, 60 )
+size = Vector3( 120, 2, 120 )
 
-[sub_resource type="Curve3D" id=3]
+[sub_resource type="CylinderMesh" id=3]
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 0.960784, 0.486275, 0.0313726, 1 )
+
+[sub_resource type="Curve3D" id=5]
 _data = {
-"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -0.266457, -6.94394e-06, -0.00904983, 0, 0, 0, 0, 0, 0, -0.266457, -6.94394e-06, 0.424052, 0, 0, 0, 0, 0, 0, -0.014211, -6.94394e-06, 0.419293, 0, 0, 0, 0, 0, 0, -0.014211, -6.94394e-06, -0.0185686, 0, 0, 0, 0, 0, 0, -0.266457, -6.94394e-06, -0.00904983 ),
-"tilts": PoolRealArray( 0, 0, 0, 0, 0 )
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, 0.968777, 0, 0.258339, 0, 0, 0, 0, 0, 0, 0.968777, 0, 0.710435, 0, 0, 0, 0, 0, 0, 0.968777, 0, 0.258339 ),
+"tilts": PoolRealArray( 0, 0, 0 )
 }
 
+[sub_resource type="BoxShape" id=6]
+extents = Vector3( 0.181836, 0.212522, 0.316286 )
+
 [node name="Main" type="Node"]
-script = ExtResource( 3 )
-fleche_scene = ExtResource( 2 )
+script = ExtResource( 1 )
+mob_scene = ExtResource( 3 )
 
 [node name="Ground" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0 )
+collision_layer = 4
+collision_mask = 0
 
 [node name="CollisionShape" type="CollisionShape" parent="Ground"]
 shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Ground"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.13168, -1.08221, -1.23676 )
+transform = Transform( 0.72685, 0, -0.686796, 0, 1, 0, 0.686796, 0, 0.72685, 0, 0, 0 )
 mesh = SubResource( 2 )
 material/0 = null
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 0.888241, -0.459378, 0, -0.389774, -0.753657, 0.529223, -0.243114, -0.470078, -0.848482, 0, 2.27976, -0.720392 )
+transform = Transform( 0.5, -0.777049, 0.382355, 0, 0.441506, 0.897258, -0.866025, -0.448629, 0.220753, 0, 12.5592, 14.7757 )
 shadow_enabled = true
 
-[node name="Treadmill" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0343734, -0.0236509, 0 )
+[node name="Player" parent="." instance=ExtResource( 2 )]
+transform = Transform( -5, 0, -4.37114e-07, 0, 5, 0, 4.37114e-07, 0, -5, 0.931389, 5.09722, -1.3703 )
+collision_layer = 0
+collision_mask = 2147483652
 
-[node name="Position3D" type="Position3D" parent="."]
+[node name="CameraPivot" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0.183514, 0, 0 )
 
-[node name="Camera" type="Camera" parent="Position3D"]
-transform = Transform( -0.984469, -0.0132641, -0.175059, -0.108741, 0.828906, 0.548717, 0.137829, 0.559231, -0.817474, -0.0904167, 0.616366, -0.878262 )
+[node name="Camera" type="Camera" parent="CameraPivot"]
+transform = Transform( -0.595734, -0.24184, 0.765908, 0.561182, 0.556884, 0.612335, -0.574609, 0.794603, -0.196038, 12.4832, 19.2594, -2.65365 )
+projection = 1
+fov = 48.6
+size = 19.0
+
+[node name="Cylinders" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0 )
+visible = false
+
+[node name="MeshInstance" type="MeshInstance" parent="Cylinders"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -15 )
+mesh = SubResource( 3 )
+material/0 = SubResource( 4 )
+
+[node name="MeshInstance3" type="MeshInstance" parent="Cylinders"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 0, -15 )
+mesh = SubResource( 3 )
+material/0 = SubResource( 4 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="Cylinders"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 0, 16 )
+mesh = SubResource( 3 )
+material/0 = SubResource( 4 )
+
+[node name="MeshInstance4" type="MeshInstance" parent="Cylinders"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 16 )
+mesh = SubResource( 3 )
+material/0 = SubResource( 4 )
 
 [node name="SpawnPath" type="Path" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.137831, 0.255775, -0.50635 )
-curve = SubResource( 3 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0 )
+curve = SubResource( 5 )
 
 [node name="SpawnLocation" type="PathFollow" parent="SpawnPath"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.266457, -6.94394e-06, -0.00904983 )
+transform = Transform( -0.491811, 0, -0.870701, 0, 1, 0, 0.870701, 0, -0.491811, 0.968777, 0, 0.258339 )
+offset = 26.9729
+rotation_mode = 1
+cubic_interp = false
+loop = false
 
-[node name="FlecheTimer" type="Timer" parent="."]
-wait_time = 0.5
+[node name="MobTimer" type="Timer" parent="."]
 autostart = true
 
-[connection signal="timeout" from="FlecheTimer" to="." method="_on_FlecheTimer_timeout"]
+[node name="UserInterface" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 7 )
+
+[node name="ScoreLabel" type="Label" parent="UserInterface"]
+visible = false
+margin_left = 20.0226
+margin_top = 16.0181
+margin_right = 126.023
+margin_bottom = 71.0181
+custom_colors/font_color = Color( 0.2, 0.184314, 0.215686, 1 )
+text = "Score: 0"
+script = ExtResource( 6 )
+
+[node name="Retry" type="ColorRect" parent="UserInterface"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.447059 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="UserInterface/Retry"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Press Enter to retry"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource( 4 )
+
+[node name="Area" type="Area" parent="."]
+transform = Transform( 30, 0, 0, 0, 20, 0, 0, 0, 10, 1.29449, 5.22343, -18.9636 )
+collision_layer = 3
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+transform = Transform( 0.999999, 0, 0, 0, 1, 0, 0, 0, 1, -0.0092412, 0, 0.188373 )
+shape = SubResource( 6 )
+
+[connection signal="hit" from="Player" to="." method="_on_Player_hit"]
+[connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
