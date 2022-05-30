@@ -2,6 +2,17 @@ extends Node
 
 export(PackedScene) var mob_scene
 
+var currentTime = 0
+var currentDistance = 0
+var currentElevation = 0
+var currentSpeed = 0
+
+var serverTime = 0
+var serverDistance = 0
+var serverElevation = 0
+var serverSpeed = 0
+
+
 
 func _ready():
 	randomize()
@@ -9,10 +20,19 @@ func _ready():
 	#$Stream.play()
 
 
+
+
+
+func _read_Last_Instructions():
+	pass
+
+
+func _send_Infos():
+	pass
+
 func _unhandled_input(event):
 	if event.is_action_pressed("ui_accept") and $UserInterface/Retry.visible:
 		get_tree().reload_current_scene()
-		$Stream.play()
 
 
 func _on_MobTimer_timeout():
@@ -41,3 +61,8 @@ func _on_Player_hit():
 	$Stream.stop()
 	$DeathSound.play()
 
+
+
+func _on_HTTPRequest_request_completed(result, response_code, headers, body):
+	var json = JSON.parse(body.get_string_from_utf8())
+	print(json.result)

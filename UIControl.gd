@@ -12,7 +12,6 @@ var headers = ["Content-Type: application/json"];
 func _ready():
 	while(true):
 		yield(get_tree().create_timer(4.0), "timeout")
-		print("test")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
