@@ -18,14 +18,14 @@ var basis = Basis()
 
 func _physics_process(delta):
 	var direction = Vector3.ZERO
-	if Input.is_action_pressed("move_right"):
-		direction.x += 1
-	if Input.is_action_pressed("move_left"):
-		direction.x -= 1
-	if Input.is_action_pressed("move_back"):
-		direction.z += 1
-	if Input.is_action_pressed("move_forward"):
-		direction.z -= 1
+	#if Input.is_action_pressed("move_right"):
+	#	direction.x += 1
+	#if Input.is_action_pressed("move_left"):
+	#	direction.x -= 1
+	#if Input.is_action_pressed("move_back"):
+	#	direction.z += 1
+	#if Input.is_action_pressed("move_forward"):
+	#	direction.z -= 1
 	if Input.is_action_pressed("elever"):
 		rotate(Vector3(1, 0, 0), 0.01)
 		# shortened
@@ -49,9 +49,9 @@ func _physics_process(delta):
 	velocity.z = direction.z * speed
 
 	# Jumping.
-	if is_on_floor() and Input.is_action_just_pressed("jump"):
-		velocity.y += jump_impulse
-		$JumpSound.play()
+	#if is_on_floor() and Input.is_action_just_pressed("jump"):
+	#	velocity.y += jump_impulse
+	#	$JumpSound.play()
 	# We apply gravity every frame so the character always collides with the ground when moving.
 	# This is necessary for the is_on_floor() function to work as a body can always detect
 	# the floor, walls, etc. when a collision happens the same frame.
