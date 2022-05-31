@@ -120,6 +120,12 @@ func _on_HTTPRequestExec_request_completed(result, response_code, headers, body)
 			power = false
 			communication_Disconnect_Stop = false
 			_delete_by_id(id)
+		elif "A3" == hexaCode :
+			var speedTemp = _get_Value_From_Json_Tab("data", tabLine)
+			var speedTempNb = speedTemp as float
+			speedTempNb = speedTempNb/10
+			currentSpeed = speedTempNb
+			_delete_by_id(id)
 		elif "AA" == hexaCode :
 			power = false
 			communication_Disconnect_Stop = false
