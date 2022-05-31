@@ -4,6 +4,9 @@ export(PackedScene) var mob_scene
 
 var url = "http://localhost:8080/instructions";
 
+var power = false
+var communication_Disconnect_Stop = false
+
 var currentTime = 0
 var currentDistance = 0
 var currentElevation = 0
@@ -21,7 +24,13 @@ func _ready():
 
 
 func _read_Last_Instructions():
-	$HTTPRequest.request(url)
+	$HTTPRequestExec.request(url)
+
+
+func _delete_by_id(id):
+	var query = JSON.print("")
+	var headers = ["Content-Type: application/json"]
+	$HTTPRequestDelete.request(url+"/"+id, headers, true, HTTPClient.METHOD_DELETE, query)
 
 
 func _process(delta):
@@ -70,7 +79,61 @@ func _on_Player_hit():
 
 
 
-func _on_HTTPRequest_request_completed(result, response_code, headers, body):
+
+
+
+func _i_to_tab(i):
+	var line = var2str(i)
+	line = line.replace("{","")
+	line = line.replace("}","")
+	return line.split(",")
+
+func _get_Value_From_Json_Tab(key, tab):
+	for i in tab:
+		if key.is_subsequence_of ( i ) :
+			var value = i.split(":")[1]
+			value = value.replace("\"","")
+			value = value.replace(" ","")
+			value = value.replace(".0","")
+			return value
+	return "value not found"
+
+
+
+func _on_HTTPRequestExec_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
 	var api_result = json.result
-	print(api_result[0])
+	for i in api_result :
+		var tabLine = _i_to_tab(i)
+		var hexaCode = _get_Value_From_Json_Tab("hexaCode", tabLine)
+		var id = _get_Value_From_Json_Tab("id", tabLine)
+		print(hexaCode)
+		if "A0" == hexaCode :
+			power = true
+			communication_Disconnect_Stop = true
+			_delete_by_id(id)
+		elif "A1" == hexaCode :
+			power = true
+			communication_Disconnect_Stop = false
+			_delete_by_id(id)
+		elif "A2" == hexaCode :
+			power = false
+			communication_Disconnect_Stop = false
+			_delete_by_id(id)
+		elif "AA" == hexaCode :
+			power = false
+			communication_Disconnect_Stop = false
+			currentElevation = 0
+			currentSpeed = 0
+			_delete_by_id(id)
+		elif "AB" == hexaCode :
+			currentElevation = 0
+			currentSpeed = 0
+			_delete_by_id(id)
+		print("contain : ", i)
+
+
+
+func _on_HTTPRequestDelete_request_completed(result, response_code, headers, body):
+	var json = JSON.parse(body.get_string_from_utf8())
+	print(json.result)
