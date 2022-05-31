@@ -16,7 +16,7 @@ height = 0.1438
 length = 1.2
 loop = true
 
-[node name="Player" type="KinematicBody"]
+[node name="Treadmill" type="KinematicBody"]
 collision_mask = 6
 script = ExtResource( 1 )
 

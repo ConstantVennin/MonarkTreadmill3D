@@ -1,9 +1,5 @@
 extends KinematicBody
 
-# Emitted when the player jumped on the mob.
-signal squashed
-
-# Minimum speed of the mob in meters per second.
 
 export var speed_mob = 10
 var velocity = Vector3.ZERO
@@ -46,11 +42,6 @@ func initialize(start_position, _player_position, speed2):
 	velocity = velocity.rotated(Vector3.UP, rotation.y)
 
 	#$AnimationPlayer.playback_speed = speed / min_speed
-
-
-func squash():
-	emit_signal("squashed")
-	queue_free()
 
 
 func _on_VisibilityNotifier_screen_exited():

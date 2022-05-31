@@ -48,7 +48,7 @@ shape = SubResource( 7 )
 transform = Transform( 0.5, -0.777049, 0.382355, 0, 0.441506, 0.897258, -0.866025, -0.448629, 0.220753, 0, 12.5592, 14.7757 )
 shadow_enabled = true
 
-[node name="Player" parent="." instance=ExtResource( 2 )]
+[node name="Treadmill" parent="." instance=ExtResource( 2 )]
 transform = Transform( -5, 0, -4.37114e-07, 0, 5, 0, 4.37114e-07, 0, -5, 0.931389, 5.09722, -1.3703 )
 collision_layer = 0
 collision_mask = 2147483652
@@ -97,7 +97,7 @@ rotation_mode = 1
 cubic_interp = false
 loop = false
 
-[node name="MobTimer" type="Timer" parent="."]
+[node name="ArrowTimer" type="Timer" parent="."]
 autostart = true
 
 [node name="UserInterface" type="Control" parent="."]
@@ -146,5 +146,4 @@ collision_layer = 3
 transform = Transform( 0.999999, 0, 0, 0, 1, 0, 0, 0, 1, -0.0092412, 0, 0.188373 )
 shape = SubResource( 6 )
 
-[connection signal="hit" from="Player" to="." method="_on_Player_hit"]
-[connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
+[connection signal="timeout" from="ArrowTimer" to="." method="_on_MobTimer_timeout"]
