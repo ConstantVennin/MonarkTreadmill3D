@@ -37,7 +37,7 @@ func initialize(start_position, _player_position, speed2):
 	#	speed-=1
 	#if Input.is_action_pressed("increase"):
 	#	speed+=1
-	velocity = Vector3.UP * speed2
+	velocity = Vector3.UP * 10
 	# We then rotate the vector based on the mob's Y rotation to move in the direction it's looking.
 	velocity = velocity.rotated(Vector3.UP, rotation.y)
 
