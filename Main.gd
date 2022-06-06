@@ -67,23 +67,9 @@ func _on_MobTimer_timeout():
 
 	add_child(arrow)
 	# We connect the mob to the score label to update the score upon squashing a mob.
-<<<<<<< HEAD
 	arrow.connect("squashed", $UserInterface/ScoreLabel, "_on_Mob_squashed")
-	arrow.initialize(mob_spawn_location.translation, player_position, speed2)
-	if Input.is_action_pressed("decrease") :
-		$ArrowTimer.wait_time += 0.05
-	if Input.is_action_pressed("increase") and $ArrowTimer.wait_time>0.2:
-		$ArrowTimer.wait_time -= 0.05
-	if Input.is_action_pressed("decrease") :
-		speed2-=0.5
-	if Input.is_action_pressed("increase"):
-		speed2+=0.5
-	print("speed2:", speed2)
-=======
-	mob.connect("squashed", $UserInterface/ScoreLabel, "_on_Mob_squashed")
-	mob.initialize(mob_spawn_location.translation, player_position, currentSpeed)
+	arrow.initialize(mob_spawn_location.translation, player_position, currentSpeed)
 	
->>>>>>> 0af7df0e0ff91a5344600b96f55491931f4e2b50
 
 
 
