@@ -37,11 +37,11 @@ func _process(delta):
 	if(Input.is_action_pressed("read_datas")):
 		_read_Last_Instructions()
 	if Input.is_action_pressed("decrease") and currentSpeed > 0:
-		$MobTimer.wait_time += 0.05
+		$ArrowTimer.wait_time += 0.05
 		currentSpeed-=0.5
 		print("currentSpeed:", currentSpeed)
 	if Input.is_action_pressed("increase") and currentSpeed < 20 :
-		$MobTimer.wait_time -= 0.05
+		$ArrowTimer.wait_time -= 0.05
 		currentSpeed+=0.5
 		print("currentSpeed:", currentSpeed)
 
@@ -66,8 +66,6 @@ func _on_MobTimer_timeout():
 	var player_position = $Treadmill.transform.origin
 
 	add_child(arrow)
-	# We connect the mob to the score label to update the score upon squashing a mob.
-	arrow.connect("squashed", $UserInterface/ScoreLabel, "_on_Mob_squashed")
 	arrow.initialize(mob_spawn_location.translation, player_position, currentSpeed)
 	
 

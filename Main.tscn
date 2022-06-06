@@ -146,12 +146,10 @@ collision_layer = 3
 transform = Transform( 0.999999, 0, 0, 0, 1, 0, 0, 0, 1, -0.0092412, 0, 0.188373 )
 shape = SubResource( 6 )
 
-[connection signal="timeout" from="ArrowTimer" to="." method="_on_MobTimer_timeout"]
 [node name="HTTPRequestExec" type="HTTPRequest" parent="."]
 
 [node name="HTTPRequestDelete" type="HTTPRequest" parent="."]
 
-[connection signal="hit" from="Player" to="." method="_on_Player_hit"]
+[connection signal="timeout" from="ArrowTimer" to="." method="_on_MobTimer_timeout"]
 [connection signal="request_completed" from="HTTPRequestExec" to="." method="_on_HTTPRequestExec_request_completed"]
 [connection signal="request_completed" from="HTTPRequestDelete" to="." method="_on_HTTPRequestDelete_request_completed"]
-
