@@ -150,6 +150,7 @@ shape = SubResource( 6 )
 
 [node name="HTTPRequestDelete" type="HTTPRequest" parent="."]
 
+
 [node name="InstructionTimer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
@@ -162,7 +163,7 @@ autostart = true
 wait_time = 0.1
 autostart = true
 
-[connection signal="timeout" from="ArrowTimer" to="." method="_on_MobTimer_timeout"]
+[connection signal="timeout" from="ArrowTimer" to="." method="_on_ArrowTimer_timeout"]
 [connection signal="request_completed" from="HTTPRequestExec" to="." method="_on_HTTPRequestExec_request_completed"]
 [connection signal="request_completed" from="HTTPRequestDelete" to="." method="_on_HTTPRequestDelete_request_completed"]
 [connection signal="timeout" from="InstructionTimer" to="." method="_on_InstructionTimer_timeout"]
