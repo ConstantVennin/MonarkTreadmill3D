@@ -150,7 +150,6 @@ shape = SubResource( 6 )
 
 [node name="HTTPRequestDelete" type="HTTPRequest" parent="."]
 
-
 [node name="InstructionTimer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
