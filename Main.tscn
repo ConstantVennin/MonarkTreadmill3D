@@ -150,10 +150,6 @@ shape = SubResource( 6 )
 
 [node name="HTTPRequestDelete" type="HTTPRequest" parent="."]
 
-<<<<<<< HEAD
 [connection signal="timeout" from="ArrowTimer" to="." method="_on_ArrowTimer_timeout"]
-=======
-[connection signal="timeout" from="ArrowTimer" to="." method="_on_MobTimer_timeout"]
->>>>>>> 2cc32b873ebab843cff9789bf3489e0c7b4891d4
 [connection signal="request_completed" from="HTTPRequestExec" to="." method="_on_HTTPRequestExec_request_completed"]
 [connection signal="request_completed" from="HTTPRequestDelete" to="." method="_on_HTTPRequestDelete_request_completed"]

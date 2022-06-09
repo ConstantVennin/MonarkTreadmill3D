@@ -1,9 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://art/Treadmill.glb" type="PackedScene" id=2]
-[ext_resource path="res://art/music_sounds/attack.wav" type="AudioStream" id=3]
-[ext_resource path="res://art/music_sounds/explosion.wav" type="AudioStream" id=4]
 
 [sub_resource type="SphereShape" id=1]
 radius = 2.15589
@@ -42,11 +40,5 @@ shape = SubResource( 2 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "float"
 anims/float = SubResource( 3 )
-
-[node name="JumpSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 3 )
-
-[node name="KillSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 4 )
 
 [connection signal="body_entered" from="MobDetector" to="." method="_on_MobDetector_body_entered"]

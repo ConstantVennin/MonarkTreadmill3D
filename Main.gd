@@ -73,17 +73,8 @@ func _on_ArrowTimer_timeout():
 
 
 	add_child(arrow)
-<<<<<<< HEAD
 	# We connect the mob to the score label to update the score upon squashing a mob.
 	arrow.initialize(mob_spawn_location.translation, currentSpeed, currentElevation)
-=======
-	arrow.initialize(mob_spawn_location.translation, player_position, currentSpeed)
->>>>>>> 2cc32b873ebab843cff9789bf3489e0c7b4891d4
-	
-
-
-
-
 
 
 
