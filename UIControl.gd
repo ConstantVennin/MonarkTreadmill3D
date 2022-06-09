@@ -85,6 +85,3 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		print(json.result)
 		print("}")
 		$LogOutput.text = "Success : you added " + body.get_string_from_utf8()
-
-
-
