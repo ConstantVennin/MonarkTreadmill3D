@@ -75,6 +75,15 @@ margin_bottom = 506.0
 rect_scale = Vector2( 0.3, 0.3 )
 custom_fonts/font = SubResource( 2 )
 
+[node name="ElevationInput2" type="TextEdit" parent="."]
+margin_left = 1100.0
+margin_top = 300.0
+margin_right = 2000.0
+margin_bottom = 506.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 2 )
+readonly = true
+
 [node name="SpeedInput" type="TextEdit" parent="."]
 margin_left = 300.0
 margin_top = 500.0
@@ -82,6 +91,24 @@ margin_right = 1200.0
 margin_bottom = 706.0
 rect_scale = Vector2( 0.3, 0.3 )
 custom_fonts/font = SubResource( 2 )
+
+[node name="SpeedInput2" type="TextEdit" parent="."]
+margin_left = 1100.0
+margin_top = 500.0
+margin_right = 2000.0
+margin_bottom = 706.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 2 )
+readonly = true
+
+[node name="DistanceInput2" type="TextEdit" parent="."]
+margin_left = 1100.0
+margin_top = 600.0
+margin_right = 2000.0
+margin_bottom = 806.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 2 )
+readonly = true
 
 [node name="TimeInput" type="TextEdit" parent="."]
 margin_left = 300.0
@@ -91,10 +118,31 @@ margin_bottom = 606.0
 rect_scale = Vector2( 0.3, 0.3 )
 custom_fonts/font = SubResource( 2 )
 
+[node name="TimeInput2" type="TextEdit" parent="."]
+margin_left = 1100.0
+margin_top = 400.0
+margin_right = 2000.0
+margin_bottom = 606.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 2 )
+readonly = true
+
 [node name="ElevationLabel" type="Label" parent="."]
 margin_left = 100.0
 margin_top = 300.0
 margin_right = 700.0
+margin_bottom = 506.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 3 )
+text = "ELEVATION
+in degree (°)"
+valign = 1
+uppercase = true
+
+[node name="ElevationLabel2" type="Label" parent="."]
+margin_left = 900.0
+margin_top = 300.0
+margin_right = 1500.0
 margin_bottom = 506.0
 rect_scale = Vector2( 0.3, 0.3 )
 custom_fonts/font = SubResource( 3 )
@@ -115,13 +163,37 @@ in km/h"
 valign = 1
 uppercase = true
 
+[node name="SpeedLabel2" type="Label" parent="."]
+margin_left = 900.0
+margin_top = 500.0
+margin_right = 1500.0
+margin_bottom = 706.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 3 )
+text = "SPEED
+in km/h"
+valign = 1
+uppercase = true
+
+[node name="DistanceLabel2" type="Label" parent="."]
+margin_left = 900.0
+margin_top = 600.0
+margin_right = 1500.0
+margin_bottom = 806.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 3 )
+text = "Distance
+in meter"
+valign = 1
+uppercase = true
+
 [node name="LogLabel" type="Label" parent="."]
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 30.0
-margin_top = -290.0
+margin_top = -380.0
 margin_right = 630.0
-margin_bottom = -84.0
+margin_bottom = -174.0
 rect_scale = Vector2( 0.3, 0.3 )
 custom_fonts/font = SubResource( 3 )
 text = "LOG"
@@ -138,6 +210,29 @@ custom_fonts/font = SubResource( 3 )
 text = "TIME
 in seconds (s)"
 valign = 1
+uppercase = true
+
+[node name="TimeLabel2" type="Label" parent="."]
+margin_left = 900.0
+margin_top = 400.0
+margin_right = 1554.0
+margin_bottom = 606.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 3 )
+text = "TIME
+in seconds (s)"
+valign = 1
+uppercase = true
+
+[node name="Treadmill" type="Label" parent="."]
+margin_left = 900.0
+margin_top = 250.0
+margin_right = 2450.0
+margin_bottom = 350.0
+rect_scale = Vector2( 0.3, 0.3 )
+custom_fonts/font = SubResource( 3 )
+text = "TREADMILL"
+align = 1
 uppercase = true
 
 [node name="SetElevation" type="Button" parent="."]
@@ -165,14 +260,23 @@ rect_scale = Vector2( 0.12, 0.12 )
 icon = ExtResource( 8 )
 
 [node name="LogOutput" type="TextEdit" parent="."]
-anchor_top = 1.0
-anchor_bottom = 1.0
 margin_left = 100.0
-margin_top = -280.0
+margin_top = 700.0
 margin_right = 1300.0
-margin_bottom = -220.0
+margin_bottom = 760.0
 custom_fonts/font = SubResource( 4 )
 readonly = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="refreshTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="HTTPRequestReader" type="HTTPRequest" parent="."]
+
+[node name="HTTPRequestDeleter" type="HTTPRequest" parent="."]
 
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
 [connection signal="pressed" from="PlayButton" to="." method="_on_PlayButton_pressed"]
@@ -182,3 +286,5 @@ readonly = true
 [connection signal="pressed" from="SetElevation" to="." method="_on_SetElevation_pressed"]
 [connection signal="pressed" from="SetSpeed" to="." method="_on_SetSpeed_pressed"]
 [connection signal="pressed" from="SetTime" to="." method="_on_SetTime_pressed"]
+[connection signal="timeout" from="refreshTimer" to="." method="_on_refreshTimer_timeout"]
+[connection signal="request_completed" from="HTTPRequestReader" to="." method="_on_HTTPRequestReader_request_completed"]

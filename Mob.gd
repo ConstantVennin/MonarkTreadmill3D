@@ -23,7 +23,6 @@ func _physics_process(_delta):
 
 func initialize(start_position, _player_position, speed2):
 	translation = start_position
-	print("speed2*:", speed2)
 	speed_mob=speed2
 	save()
 	if Input.is_action_pressed("elever") :
