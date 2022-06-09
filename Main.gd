@@ -37,13 +37,21 @@ func _process(delta):
 	if(Input.is_action_pressed("read_datas")):
 		_read_Last_Instructions()
 	if Input.is_action_pressed("decrease") and currentSpeed > 0:
-		$MobTimer.wait_time += 0.05
+		$ArrowTimer.wait_time += 0.05
 		currentSpeed-=0.5
 		print("currentSpeed:", currentSpeed)
 	if Input.is_action_pressed("increase") and currentSpeed < 20 :
-		$MobTimer.wait_time -= 0.05
+		$ArrowTimer.wait_time -= 0.05
 		currentSpeed+=0.5
 		print("currentSpeed:", currentSpeed)
+	if Input.is_action_pressed("elever") :
+		currentElevation+=0.001
+		print("currentElevation:", currentElevation)
+	if Input.is_action_pressed("abaisser") :
+		currentElevation-=0.001
+		print("currentElevation:", currentElevation)
+	$Treadmill.initialize(currentElevation)
+
 
 
 func _send_Infos():
@@ -54,7 +62,7 @@ func _unhandled_input(event):
 		get_tree().reload_current_scene()
 
 
-func _on_MobTimer_timeout():
+func _on_ArrowTimer_timeout():
 	# Create a Mob instance and add it to the scene.
 	var arrow = mob_scene.instance()
 	var direction = Vector3.ZERO
@@ -63,12 +71,10 @@ func _on_MobTimer_timeout():
 	var mob_spawn_location = get_node("SpawnPath/SpawnLocation")
 	mob_spawn_location.unit_offset = randf()
 
-	var player_position = $Treadmill.transform.origin
 
 	add_child(arrow)
 	# We connect the mob to the score label to update the score upon squashing a mob.
-	arrow.connect("squashed", $UserInterface/ScoreLabel, "_on_Mob_squashed")
-	arrow.initialize(mob_spawn_location.translation, player_position, currentSpeed)
+	arrow.initialize(mob_spawn_location.translation, currentSpeed, currentElevation)
 	
 
 
