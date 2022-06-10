@@ -10,7 +10,7 @@ var communication_Disconnect_Stop = false
 var currentTime = 0
 var currentDistance = 0.0
 var currentElevation = 0.0
-var currentSpeed = 0.0
+var currentSpeed = 10.0
 
 var serverTime = 0
 var serverDistance = 0
@@ -44,12 +44,7 @@ func _process(delta):
 		$ArrowTimer.wait_time -= 0.05
 		currentSpeed+=0.5
 		print("currentSpeed:", currentSpeed)
-	if Input.is_action_pressed("elever") :
-		currentElevation+=0.001
-		print("currentElevation:", currentElevation)
-	if Input.is_action_pressed("abaisser") :
-		currentElevation-=0.001
-		print("currentElevation:", currentElevation)
+	currentElevation=-10
 	$Treadmill.initialize(currentElevation)
 
 

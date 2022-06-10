@@ -2,32 +2,32 @@ extends KinematicBody
 
 
 export var speed_mob = 10
-export var Elevation_mob=0
+var targetElevation=0
+var elevationAdd=0
 var velocity = Vector3.ZERO
+
 
 func _physics_process(_delta):
 	var direction = Vector3.ZERO
 	move_and_slide(velocity)
 	velocity = Vector3.FORWARD * speed_mob
 	velocity = velocity.rotated(Vector3.UP, rotation.y)
-	if Input.is_action_pressed("elever"):
-		rotate(Vector3(1, 0, 0), Elevation_mob)
-		# shortened
-		$Pivot.rotate_x(Elevation_mob)
-		direction.y -= 0.1
-	if Input.is_action_pressed("abaisser"):
-		rotate(Vector3(1, 0, 0), -Elevation_mob)
-		# shortened
-		$Pivot.rotate_x(-Elevation_mob)
-		direction.y += 0.1
 
-func initialize(start_position, speed2, Elevation):
+
+
+
+func initialize(start_position, speed2, currentElevation):
 	translation = start_position
 	speed_mob=speed2
-	Elevation_mob=Elevation
+	targetElevation = currentElevation*2*PI/180
 
 	#rotate_y(rand_range(-PI / 4, PI / 4))
+	if targetElevation > elevationAdd:
+		elevationAdd +=0.001
+	if targetElevation < elevationAdd:
+		elevationAdd -=0.001
 	rotate_y(0)
+	rotate(Vector3(1, 0, 0), elevationAdd)
 	# We calculate a forward velocity first, which represents the speed.
 	#if Input.is_action_pressed("decrease") :
 	#	speed-=1
