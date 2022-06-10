@@ -14,7 +14,7 @@ var velocity = Vector3.ZERO
 var basis = Basis()
 
 func initialize(currentElevation):
-	targetElevation = currentElevation*2*PI/180
+	targetElevation = currentElevation*PI/180
 
 func _physics_process(delta):
 	var direction = Vector3.ZERO

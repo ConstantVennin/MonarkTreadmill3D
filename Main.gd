@@ -44,7 +44,7 @@ func _process(delta):
 		$ArrowTimer.wait_time -= 0.05
 		currentSpeed+=0.5
 		print("currentSpeed:", currentSpeed)
-	currentElevation=-10
+	currentElevation=-20
 	$Treadmill.initialize(currentElevation)
 
 

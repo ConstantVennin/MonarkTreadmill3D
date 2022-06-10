@@ -19,7 +19,7 @@ func _physics_process(_delta):
 func initialize(start_position, speed2, currentElevation):
 	translation = start_position
 	speed_mob=speed2
-	targetElevation = currentElevation*2*PI/180
+	targetElevation = currentElevation*PI/180
 
 	#rotate_y(rand_range(-PI / 4, PI / 4))
 	if targetElevation > elevationAdd:
