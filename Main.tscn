@@ -162,6 +162,10 @@ autostart = true
 wait_time = 0.1
 autostart = true
 
+[node name="HTTPRequestSendTime" type="HTTPRequest" parent="."]
+
+[node name="HTTPRequestSendElevation" type="HTTPRequest" parent="."]
+
 [connection signal="timeout" from="ArrowTimer" to="." method="_on_ArrowTimer_timeout"]
 [connection signal="request_completed" from="HTTPRequestExec" to="." method="_on_HTTPRequestExec_request_completed"]
 [connection signal="request_completed" from="HTTPRequestDelete" to="." method="_on_HTTPRequestDelete_request_completed"]

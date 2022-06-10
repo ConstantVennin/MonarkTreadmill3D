@@ -63,7 +63,7 @@ func _on_ArrowTimer_timeout():
 	# Create a Mob instance and add it to the scene.
 	var arrow = mob_scene.instance()
 	var direction = Vector3.ZERO
-
+	
 	# Choose a random location on Path2D.
 	var mob_spawn_location = get_node("SpawnPath/SpawnLocation")
 	mob_spawn_location.unit_offset = randf()
@@ -71,7 +71,6 @@ func _on_ArrowTimer_timeout():
 
 	add_child(arrow)
 	arrow.initialize(mob_spawn_location.translation, currentSpeed, currentElevation)
-
 
 
 func _i_to_tab(i):
@@ -139,7 +138,6 @@ func _on_HTTPRequestExec_request_completed(result, response_code, headers, body)
 			currentElevation = 0
 			currentSpeed = 0
 			_delete_by_id(id)
-	
 
 
 func _on_HTTPRequestDelete_request_completed(result, response_code, headers, body):
@@ -156,18 +154,25 @@ func _on_ChronoTimer_timeout():
 	currentTime += 1
 
 
-func _make_post_request(url):
+func _make_post_request(url, type):
 	print(url)
 	var query = JSON.print("")
 	var headers = ["Content-Type: application/json"]
-	$HTTPRequestSend.request(url, headers, true, HTTPClient.METHOD_POST, query)
+	if type == "time" :
+		$HTTPRequestSendTime.request(url, headers, true, HTTPClient.METHOD_POST, query)
+	elif type == "elevation" :
+		$HTTPRequestSendElevation.request(url, headers, true, HTTPClient.METHOD_POST, query)
+	else :
+		$HTTPRequestSend.request(url, headers, true, HTTPClient.METHOD_POST, query)
 	print("[LOG][POST][URL:" + url + "]")
+
 
 func _transform_in_four_bytes(value):
 	var res = str(value)
 	while(res.length()<4):
 		res = "0" + res
 	return res
+
 
 func _send_Infos():
 	if currentSpeed != serverSpeed :
@@ -176,27 +181,31 @@ func _send_Infos():
 		var data = ""
 		data = _transform_in_four_bytes(serverSpeed)
 		serverSpeed = serverSpeed / 10
-		_make_post_request(url + "/D1/" + data)
+		_make_post_request(url + "/D1/" + data, "speed")
 	if currentTime != serverTime :
 		serverTime = currentTime
 		var data = ""
 		data = _transform_in_four_bytes(serverTime)
-		_make_post_request(url + "/D6/" + data)
+		_make_post_request(url + "/D6/" + data, "time")
 	if int(currentDistance) != serverDistance :
 		serverDistance = int(currentDistance)
 		var data = ""
 		data = _transform_in_four_bytes(serverDistance)
-		_make_post_request(url + "/D7/" + data)
+		_make_post_request(url + "/D7/" + data, "distance")
 	if currentElevation != serverElevation :
 		serverElevation = currentElevation
 		serverElevation = serverElevation * 10
 		var data = ""
 		data = _transform_in_four_bytes(serverElevation)
-		_make_post_request(url + "/D2/" + data)
+		_make_post_request(url + "/D2/" + data, "elevation")
 		serverElevation = serverElevation / 10
 		print("elevation changed : ", serverElevation, " ", currentElevation)
 
 
+
 func _on_refreshDistanceTimer_timeout():
-	
 	currentDistance += float(currentSpeed)/36.0
+
+
+func _on_HTTPRequestSend_request_completed(result, response_code, headers, body):
+	pass

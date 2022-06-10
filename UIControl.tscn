@@ -188,12 +188,10 @@ valign = 1
 uppercase = true
 
 [node name="LogLabel" type="Label" parent="."]
-anchor_top = 1.0
-anchor_bottom = 1.0
 margin_left = 30.0
-margin_top = -380.0
+margin_top = 700.0
 margin_right = 630.0
-margin_bottom = -174.0
+margin_bottom = 906.0
 rect_scale = Vector2( 0.3, 0.3 )
 custom_fonts/font = SubResource( 3 )
 text = "LOG"
